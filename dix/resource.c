@@ -1193,7 +1193,7 @@ LegalNewID(XID id, ClientPtr client)
     return FALSE;
 }
 
-int
+HotFunction int
 dixLookupResourceByType(void **result, XID id, RESTYPE rtype,
                         ClientPtr client, Mask mode)
 {
@@ -1230,7 +1230,7 @@ dixLookupResourceByType(void **result, XID id, RESTYPE rtype,
     return Success;
 }
 
-int
+HotFunction int
 dixLookupResourceByClass(void **result, XID id, RESTYPE rclass,
                          ClientPtr client, Mask mode)
 {
