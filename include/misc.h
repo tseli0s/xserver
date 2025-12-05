@@ -229,6 +229,12 @@ __builtin_constant_p(int x)
 }
 #endif
 
+#if defined(__GNUC__) && __has_attribute(hot)
+#define HotFunction __attribute__((hot))
+#else
+#define HotFunction
+#endif
+
 static inline uint64_t
 bswap_64(uint64_t x)
 {
