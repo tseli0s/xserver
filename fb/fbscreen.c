@@ -79,7 +79,7 @@ fbQueryBestSize(int class,
     }
 }
 
-PixmapPtr
+inline PixmapPtr
 _fbGetWindowPixmap(WindowPtr pWindow)
 {
     return fbGetWindowPixmap(pWindow);
