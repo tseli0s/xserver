@@ -475,7 +475,8 @@ DisableLimitedSchedulingLatency(void)
         SmartScheduleLatencyLimited = 0;
 }
 
-void
+/* If this isn't a hot function idk what is */
+HotFunction void
 Dispatch(void)
 {
     int result;
