@@ -6170,37 +6170,14 @@ SetClientPointer(ClientPtr client, DeviceIntPtr device)
     return Success;
 }
 
-/* PickPointer will pick an appropriate pointer for the given client.
- *
- * An "appropriate device" is (in order of priority):
- *  1) A device the given client has a core grab on.
- *  2) A device set as ClientPointer for the given client.
- *  3) The first master device.
- */
-DeviceIntPtr
+/*
+ * This function is broken if you have multiple methods of "controlling the cursor"
+ * (I broke it intentionally because I don't use anything other than a mouse)
+ * Don't be surprised if this breaks your desktop. It *WILL* cause problems.
+*/
+inline HotFunction DeviceIntPtr
 PickPointer(ClientPtr client)
 {
-    /* First, check if the client currently has a grab on a device. Even
-     * keyboards count. */
-    for (DeviceIntPtr it = inputInfo.devices; it; it = it->next) {
-        GrabPtr grab = it->deviceGrab.grab;
-
-        if (grab && grab->grabtype == CORE && SameClient(grab, client)) {
-            it = GetMaster(it, MASTER_POINTER);
-            return it;          /* Always return a core grabbed device */
-        }
-    }
-
-    if (!client->clientPtr) {
-        DeviceIntPtr it = inputInfo.devices;
-        while (it) {
-            if (InputDevIsMaster(it) && it->spriteInfo->spriteOwner) {
-                client->clientPtr = it;
-                break;
-            }
-            it = it->next;
-        }
-    }
     return client->clientPtr;
 }
 
@@ -6208,11 +6185,10 @@ PickPointer(ClientPtr client)
  * searching the list of devices for the keyboard device that is paired with
  * the client's pointer.
  */
-DeviceIntPtr
+inline HotFunction DeviceIntPtr
 PickKeyboard(ClientPtr client)
 {
-    DeviceIntPtr ptr = PickPointer(client);
-    DeviceIntPtr kbd = GetMaster(ptr, MASTER_KEYBOARD);
+    DeviceIntPtr kbd = GetMaster(PickPointer(client), MASTER_KEYBOARD);
 
     if (!kbd) {
         ErrorF("[dix] ClientPointer not paired with a keyboard. This "
