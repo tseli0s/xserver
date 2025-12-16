@@ -479,8 +479,6 @@ void
 Dispatch(void)
 {
     int result;
-    ClientPtr client;
-    long start_tick;
 
     nextFreeClientID = 1;
     nClients = 0;
@@ -503,11 +501,11 @@ Dispatch(void)
          *****************/
 
         if (!dispatchException && clients_are_ready()) {
-            client = SmartScheduleClient();
+            ClientPtr client = SmartScheduleClient();
 
             isItTimeToYield = FALSE;
 
-            start_tick = SmartScheduleTime;
+            long start_tick = SmartScheduleTime;
             while (!isItTimeToYield) {
                 if (InputCheckPending())
                     ProcessInputEvents();
