@@ -390,7 +390,7 @@ GetCompositeWindowBytes(void *value, XID id, ResourceSizePtr size)
     if (window->redirectDraw != RedirectDrawNone)
     {
         SizeType pixmapSizeFunc = GetResourceTypeSizeFunc(X11_RESTYPE_PIXMAP);
-        ResourceSizeRec pixmapSize = { 0, 0 };
+        ResourceSizeRec pixmapSize = { 0, 0, 0 };
         ScreenPtr screen = window->drawable.pScreen;
         PixmapPtr pixmap = screen->GetWindowPixmap(window);
         pixmapSizeFunc(pixmap, pixmap->drawable.id, &pixmapSize);
