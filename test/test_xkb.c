@@ -60,7 +60,7 @@
 static void
 xkb_get_rules_test(void)
 {
-    XkbRMLVOSet rmlvo = { NULL };
+    XkbRMLVOSet rmlvo = { NULL, NULL, NULL, NULL, NULL };
     XkbGetRulesDflts(&rmlvo);
 
     assert(rmlvo.rules);
@@ -87,7 +87,7 @@ static void
 xkb_set_rules_test(void)
 {
     XkbRMLVOSet rmlvo;
-    XkbRMLVOSet rmlvo_new = { NULL };
+    XkbRMLVOSet rmlvo_new = { NULL, NULL, NULL, NULL, NULL };
 
     XkbInitRules(&rmlvo, "test-rules", "test-model", "test-layout",
                          "test-variant", "test-options");
@@ -133,7 +133,7 @@ xkb_set_get_rules_test(void)
    the built-in defaults. The unexpected free isn't triggered until the second
    XkbSetRulesDefaults.
  */
-    XkbRMLVOSet rmlvo = { NULL };
+    XkbRMLVOSet rmlvo = { NULL, NULL, NULL, NULL, NULL };
     XkbRMLVOSet rmlvo_backup;
 
     XkbGetRulesDflts(&rmlvo);
