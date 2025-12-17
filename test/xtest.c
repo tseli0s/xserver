@@ -67,7 +67,7 @@ xtest_init(void)
 {
     static ScreenRec screen = {0};
     static ClientRec server_client = {0};
-    static WindowRec root = {{0}};
+    static WindowRec root = { 0 };
     static WindowOptRec optional = {0};
 
     /* random stuff that needs initialization */
