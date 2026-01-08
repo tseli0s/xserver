@@ -649,6 +649,7 @@ common_dep = [
 inc = include_directories(
     '.',
     'Xext',
+    'Xext/dri2',
     'Xi',
     'composite',
     'exa',
@@ -810,6 +811,7 @@ libxserver = [
     libxserver_os,
 ]
 
+libxserver += libxserver_dri2
 libxserver += libxserver_dri3
 
 if build_namespace
@@ -877,6 +879,16 @@ if build_xorg
     sdkconfig.set('SDK_REQUIRED_MODULES', ' '.join(sdk_required_modules))
     sdkconfig.set('symbol_visibility', '-fvisibility=hidden')
     sdkconfig.set('XORG_DRIVER_LIBS', '')
+    sdkconfig.set('driver_man_dir', join_paths(get_option('prefix'), get_option('mandir'), 'man4'))
+    sdkconfig.set('driver_man_section', '4')
+    sdkconfig.set('app_man_dir', join_paths(get_option('prefix'), get_option('mandir'), 'man1'))
+    sdkconfig.set('app_man_section', '1')
+    sdkconfig.set('file_man_dir', join_paths(get_option('prefix'), get_option('mandir'), 'man5'))
+    sdkconfig.set('file_man_section', '5')
+    sdkconfig.set('misc_man_dir', join_paths(get_option('prefix'), get_option('mandir'), 'man7'))
+    sdkconfig.set('misc_man_section', '7')
+    sdkconfig.set('server_name', 'Xorg')
+    sdkconfig.set('server_config', 'xorg.conf')
 
     # On Windows, modules built with the SDK will need to link with server and
     # module implibs to resolve symbols
