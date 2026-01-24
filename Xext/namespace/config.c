@@ -159,19 +159,19 @@ static void parseLine(char *line, struct Xnamespace **walk_ns)
     XNS_LOG("unknown token \"%s\"\n", token);
 }
 
-Bool XnsLoadConfig(void)
+Bool XnsLoadConfig(const char *filename)
 {
     xorg_list_append_ndup(&ns_root.entry, &ns_list);
     xorg_list_append_ndup(&ns_anon.entry, &ns_list);
 
-    if (!namespaceConfigFile) {
+    if (!filename) {
         XNS_LOG("no namespace config given - Xnamespace disabled\n");
         return FALSE;
     }
 
-    FILE *fp = fopen(namespaceConfigFile, "r");
+    FILE *fp = fopen(filename, "r");
     if (fp == NULL) {
-        FatalError("failed loading namespace config: %s\n", namespaceConfigFile);
+        FatalError("failed loading namespace config: %s\n", filename);
         return FALSE;
     }
 
@@ -182,7 +182,7 @@ Bool XnsLoadConfig(void)
 
     fclose(fp);
 
-    XNS_LOG("loaded namespace config file: %s\n", namespaceConfigFile);
+    XNS_LOG("loaded namespace config file: %s\n", filename);
 
     struct Xnamespace *ns;
     xorg_list_for_each_entry(ns, &ns_list, entry) {

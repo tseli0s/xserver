@@ -27,7 +27,7 @@ NamespaceExtensionInit(void)
     XNS_LOG("initializing namespace extension ...\n");
 
     /* load configuration */
-    if (!XnsLoadConfig()) {
+    if (!XnsLoadConfig(namespaceConfigFile)) {
         XNS_LOG("No config file. disabling Xns extension\n");
         return;
     }

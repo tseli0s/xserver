@@ -48,7 +48,7 @@ struct XnamespaceClientPriv {
 
 extern DevPrivateKeyRec namespaceClientPrivKeyRec;
 
-Bool XnsLoadConfig(void);
+Bool XnsLoadConfig(const char *filename);
 struct Xnamespace *XnsFindByName(const char* name);
 struct Xnamespace* XnsFindByAuth(size_t szAuthProto, const char* authProto, size_t szAuthToken, const char* authToken);
 void XnamespaceAssignClient(struct XnamespaceClientPriv *priv, struct Xnamespace *ns);
