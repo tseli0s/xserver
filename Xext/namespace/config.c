@@ -83,6 +83,17 @@ static void parseLine(char *line, struct Xnamespace **walk_ns)
     if (token == NULL)
         return;
 
+    if (strcmp(token, "include") == 0) {
+        if ((token = strtok(NULL, " \t")) == NULL) {
+            XNS_LOG("no filename given to include!\n");
+            return;
+        }
+        /* TODO: We should add the ability to include a file relative to the file that has the include command */
+        XNS_LOG("including file %s\n", token);
+        XnsLoadConfig(token);
+        return;
+    }
+
     /* if no "namespace" statement hasn't been issued yet, use root NS */
     struct Xnamespace * curr = (*walk_ns ? *walk_ns : &ns_root);
 
