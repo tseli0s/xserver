@@ -207,6 +207,8 @@ Bool XnsLoadConfig(const char *filename)
         }
     }
 
+    /* Once we've read the main config file once, ensure we never open it again */
+    namespaceConfigFile = NULL;
     return TRUE;
 }
 
